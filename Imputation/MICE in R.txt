@@ -1,0 +1,37 @@
+
+library(readxl)    # For reading Excel files
+library(mice)      # For data imputation
+library(openxlsx)  # For writing Excel files
+
+data <- read_excel("D:/DatasetTBI.xlsx")
+
+md.pattern(data)
+
+imp <- mice(data, maxit = 0)
+pred <- imp$predictorMatrix
+
+meth <- imp$meth
+
+meth[c("AMR", "BR", "CR", "SSA")] <- "pmm" 
+meth[c("onetcontent", "dspacing", "Cationsize", "Anionsize", "PW", "CD")] <- ""    
+meth["Capacitance"] <- ""          
+
+imp <- mice(data, maxit = 20, m = 3, method = meth)
+
+adjust_divisible_by_5 <- function(x) {
+  ifelse(x %% 5 == 0, x, round(x / 5) * 5)
+}
+
+for (i in 1:3) {
+  # Extract the i-th imputation
+  imputed_i <- complete(imp, i)
+  
+  imputed_i$AMR <- adjust_divisible_by_5(imputed_i$AMR)
+  imputed_i$BR <- adjust_divisible_by_5(imputed_i$BR)
+  imputed_i$CR <- adjust_divisible_by_5(imputed_i$CR)
+  
+  write.xlsx(imputed_i, paste0("D:/DatasetI", i, ".xlsx"))
+  
+  cat("\nSummary for DatasetI", i, ":\n", sep="")
+  print(summary(imputed_i[c("AMR", "BR", "CR")]))
+}
