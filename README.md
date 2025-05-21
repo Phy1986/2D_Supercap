@@ -1,5 +1,3 @@
----
-
 # 2D_Supercap  
 This repository accompanies the manuscript **"Electrolyte Hydration Energy as a Universal Descriptor for Ion-Specific Capacitance: Insights from Interpretable Machine Learning"**. It provides code, data, and analysis tools to reproduce the interpretable machine learning framework for predicting and understanding the capacitance of 2D MoS₂ supercapacitors.  
 
@@ -12,9 +10,8 @@ This repository accompanies the manuscript **"Electrolyte Hydration Energy as a 
 - **Input values** for MoS₂ properties (e.g., 1T content, d-spacing), electrolyte parameters, fabrication details, and operational conditions.  
 - **Click Predict** to see the model's capacitance output in real time.  
 
----
-
 ### Key Features  
 - **Reproducible ML Framework**: Code and data to train models linking material/electrolyte properties to capacitance.  
 - **Interpretability Tools**: SHAP analysis, feature importance, and partial dependence plots.  
-- **Dataset**: Experimentally validated capacitance measurements for 2D MoS₂ supercapacitors.  
+- **Dataset**: Experimentally validated capacitance measurements for 2D MoS₂ supercapacitors.
+
